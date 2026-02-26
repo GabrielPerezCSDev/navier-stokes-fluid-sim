@@ -1,5 +1,7 @@
 #include "core/MACGrid.h"
 #include <iostream>
+#include <iomanip>
+#include <string>
 
 MACGrid::~MACGrid() {
     deleteCells();
@@ -101,5 +103,21 @@ void MACGrid::printAscii(int minX, int maxX, int minY, int maxY) const {
             }
         }
         std::cout << '\n';
+    }
+}
+
+void MACGrid::printVelocities(const std::string& label) const {
+    std::cout << "\n=== " << label << " ===\n";
+    std::cout << std::fixed << std::setprecision(4);
+    for (const auto& [pos, cell] : grid) {
+        if (cell->type == WATER) {
+            std::cout << "(" << pos.first << "," << pos.second << ")"
+                      << " uL=" << std::setw(8) << cell->uL
+                      << " uR=" << std::setw(8) << cell->uR
+                      << " vB=" << std::setw(8) << cell->vB
+                      << " vT=" << std::setw(8) << cell->vT
+                      << " P="  << std::setw(10) << cell->pressure
+                      << "\n";
+        }
     }
 }

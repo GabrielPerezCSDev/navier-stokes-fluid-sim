@@ -22,16 +22,18 @@ int main()
 
         // Simulation step
         Solver::applyGravity(grid, -9.81, dt);
-        Solver::advectVelocities(grid, dt);
+        grid.printVelocities("After Gravity");
+        //Solver::advectVelocities(grid, dt);
+        //grid.printVelocities("After Advection");
 
         // Render
         printf("\n\n\nRendering\n\n");
         renderer.drawGrid(grid);
 
-        SDL_Delay(15); // Delay in ms (for demo purposes)
+        SDL_Delay(100); // Delay in ms (for demo purposes)
 
         // Optional: break after X frames
-        if (frame > 100)
+        if (frame > 50)
             running = false;
     }
 

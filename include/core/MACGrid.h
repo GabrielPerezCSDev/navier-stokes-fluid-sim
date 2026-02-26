@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <utility>
 #include "core/MACCell.h"
+#include <string>
 
 // Hash function for coordinate pairs (needed for unordered_map)
 struct hash_pair
@@ -29,6 +30,7 @@ public:
     void linkNeighbors(int x, int y);
     void setCellType(int x, int y, Type t);
     void printAscii(int minX, int maxX, int minY, int maxY) const;
+    void printVelocities(const std::string& label) const;
 
 private:
     void deleteCells();
