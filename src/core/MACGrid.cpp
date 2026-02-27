@@ -113,9 +113,7 @@ void MACGrid::printVelocities(const std::string& label) const {
         if (cell->type == WATER) {
             std::cout << "(" << pos.first << "," << pos.second << ")"
                       << " uL=" << std::setw(8) << cell->uL
-                      << " uR=" << std::setw(8) << cell->uR
                       << " vB=" << std::setw(8) << cell->vB
-                      << " vT=" << std::setw(8) << cell->vT
                       << " P="  << std::setw(10) << cell->pressure
                       << "\n";
         }

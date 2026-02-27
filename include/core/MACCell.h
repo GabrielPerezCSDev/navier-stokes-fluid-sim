@@ -14,8 +14,8 @@ enum Type
 struct MACCell
 {
   Type type;       // Fluid type
-  double uL, uR;   // X-face velocities (m/s)
-  double vB, vT;   // Y-face velocities (m/s)
+  double uL;   // Left X-face velocity (m/s)
+  double vB;   // Bottom Y-face velocity (m/s)
   double pressure; // Pascals (N/m^2)
   double density;  // kg/m^3
   double size;     // Cell resolution (m)
@@ -30,7 +30,7 @@ struct MACCell
   // Constructor (defaults)
   MACCell(int x_, int y_, Type t)
       : x(x_), y(y_), type(t), size(CELL_SIZE),
-        uL(0), uR(0), vB(0), vT(0)
+      uL(0), vB(0)
   {
     switch (t)
     {

@@ -13,7 +13,7 @@ namespace Solver
         int i;
         int j;
         std::pair<double, double> rwPair;
-        std::unordered_map<std::pair<int, int>, double, hash_pair> newUL, newUR, newVT, newVB;
+        std::unordered_map<std::pair<int, int>, double, hash_pair> newUL, newVB;
         for (const auto &[pos, cell] : grid.grid)
         {
             i = pos.first;
@@ -25,20 +25,8 @@ namespace Solver
             y_prev = rwPair.second - dt * sampleV(grid, rwPair.first, rwPair.second);
             newUL[pos] = sampleU(grid, x_prev, y_prev);
 
-            // right
-            rwPair = uFaceWorldPos(i + 1, j, cell->size);
-            x_prev = rwPair.first - dt * cell->uR;
-            y_prev = rwPair.second - dt * sampleV(grid, rwPair.first, rwPair.second);
-            newUR[pos] = sampleU(grid, x_prev, y_prev);
-
-            // top
-            rwPair = uFaceWorldPos(i, j, cell->size);
-            x_prev = rwPair.first - dt * sampleU(grid, rwPair.first, rwPair.second);
-            y_prev = rwPair.second - dt * cell->vT;
-            newVT[pos] = sampleV(grid, x_prev, y_prev);
-
             // bottom
-            rwPair = uFaceWorldPos(i, j + 1, cell->size);
+            rwPair = vFaceWorldPos(i, j, cell->size);
             x_prev = rwPair.first - dt * sampleU(grid, rwPair.first, rwPair.second);
             y_prev = rwPair.second - dt * cell->vB;
             newVB[pos] = sampleV(grid, x_prev, y_prev);
@@ -49,10 +37,6 @@ namespace Solver
         {
             if (newUL.count(pos))
                 cell->uL = newUL[pos];
-            if (newUR.count(pos))
-                cell->uR = newUR[pos];
-            if (newVT.count(pos))
-                cell->vT = newVT[pos];
             if (newVB.count(pos))
                 cell->vB = newVB[pos];
         }
@@ -154,9 +138,8 @@ namespace Solver
         for (auto& [pos, cell] : grid.grid) {
             if (cell->type == WATER) {
                 cell->vB += gravity * dt;
-                cell->vT += gravity * dt;
             }
         }
     }
-    
+
 }

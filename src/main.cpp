@@ -9,6 +9,8 @@ int main()
     MACGrid grid;
     Rectangle tank(1, 1, 1, 1, 1); // 10x5 tank filled fully
     tank.applyToGrid(grid);
+    MACCell* testCell = grid.getCell(14, 14);
+    if (testCell) testCell->vB = -5.0;
 
     SDLRenderer renderer(1920, 1080, 30);
 
@@ -23,17 +25,17 @@ int main()
         // Simulation step
         Solver::applyGravity(grid, -9.81, dt);
         grid.printVelocities("After Gravity");
-        //Solver::advectVelocities(grid, dt);
-        //grid.printVelocities("After Advection");
+        Solver::advectVelocities(grid, dt);
+        grid.printVelocities("After Advection");
 
         // Render
         printf("\n\n\nRendering\n\n");
         renderer.drawGrid(grid);
 
-        SDL_Delay(100); // Delay in ms (for demo purposes)
+        SDL_Delay(1000); // Delay in ms (for demo purposes)
 
         // Optional: break after X frames
-        if (frame > 50)
+        if (frame > 10)
             running = false;
     }
 

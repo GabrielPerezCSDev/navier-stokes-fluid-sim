@@ -90,13 +90,13 @@ void SDLRenderer::drawGrid(const MACGrid& grid) {
 
     for (const auto& [pos, cell] : grid.grid) {
         
-            int x = pos.first;
+        int x = pos.first;
         int y = pos.second;
 
-        //int drawX = x * cellSize + offsetX;
-        //int drawY = offsetY + (y * cellSize);
-        int drawX = x * cellSize;
-        int drawY = (y * cellSize);
+        int drawX = x * cellSize + offsetX;
+        int drawY = offsetY + (y * cellSize);
+        //int drawX = x * cellSize;
+        //int drawY = (y * cellSize);
 
         SDL_Rect rect = { drawX, drawY, cellSize, cellSize };
 
@@ -109,8 +109,10 @@ void SDLRenderer::drawGrid(const MACGrid& grid) {
         SDL_RenderFillRect(renderer, &rect);
 
         if (cell->type == WATER || cell->type == AIR) {
-            double u = (cell->uL + cell->uR) / 2.0;
-            double v = (cell->vB + cell->vT) / 2.0;
+            const MACCell* rightCell = grid.getCell(x + 1, y);
+            const MACCell* topCell = grid.getCell(x, y + 1);
+            double u = (cell->uL + (rightCell ? rightCell->uL : cell->uL)) / 2.0;
+            double v = (cell->vB + (topCell ? topCell->vB : cell->vB)) / 2.0;
 
             double scale = arrowScale;
             u *= scale;
