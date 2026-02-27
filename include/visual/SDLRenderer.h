@@ -18,6 +18,7 @@ class SDLRenderer {
     int screenWidth, screenHeight, cellSize; 
     int offsetX = 0;  
     int offsetY = 0;
+    int gridMaxY = 0;
     bool offsetInitialized = false;
 
     void calculateCenterOffset(const MACGrid& grid);

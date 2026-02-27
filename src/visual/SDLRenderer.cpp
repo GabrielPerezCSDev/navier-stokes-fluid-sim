@@ -94,7 +94,7 @@ void SDLRenderer::drawGrid(const MACGrid& grid) {
         int y = pos.second;
 
         int drawX = x * cellSize + offsetX;
-        int drawY = offsetY + (y * cellSize);
+        int drawY = offsetY + (gridMaxY - y) * cellSize;
         //int drawX = x * cellSize;
         //int drawY = (y * cellSize);
 
@@ -169,6 +169,8 @@ void SDLRenderer::calculateCenterOffset(const MACGrid& grid) {
     offsetX = (screenWidth  - simPixelWidth)  / 2;
     offsetY = (screenHeight - simPixelHeight) / 2;
 
+    gridMaxY = maxY;
+
     offsetInitialized = true;
 
     // === Debug Output ===
@@ -185,6 +187,10 @@ void SDLRenderer::calculateCenterOffset(const MACGrid& grid) {
 
     std::cout << "\n=== Calculated Offsets ===\n";
     std::cout << "Offset X: " << offsetX << " px\n";
+    std::cout << "Offset Y: " << offsetY << " px\n";
+
+    std::cout << "\n=== Max Y ===\n";
+    std::cout << "Max Y: " << offsetX << " px\n";
     std::cout << "Offset Y: " << offsetY << " px\n";
 
     std::cout << "\n=== Grid Stats ===\n";
