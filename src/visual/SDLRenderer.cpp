@@ -102,7 +102,12 @@ void SDLRenderer::drawGrid(const MACGrid& grid) {
 
         switch (cell->type) {
             case SOLID: SDL_SetRenderDrawColor(renderer, 80, 80, 80, 255); break;
-            case WATER: SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255); break;
+            case WATER: {
+                double speed = std::sqrt(cell->uL * cell->uL + cell->vB * cell->vB);
+                SDL_Color c = velocityColor(speed, grid.maxVelocity);
+                SDL_SetRenderDrawColor(renderer, c.r, c.g, c.b, c.a);
+                break;
+            }
             case AIR:   SDL_SetRenderDrawColor(renderer, 160, 160, 160, 255); break;
         }
 
@@ -195,4 +200,12 @@ void SDLRenderer::calculateCenterOffset(const MACGrid& grid) {
 
     std::cout << "\n=== Grid Stats ===\n";
     std::cout << "Total Cells: " << grid.grid.size() << "\n";
+}
+
+SDL_Color SDLRenderer::velocityColor(double speed, double maxSpeed) {
+    double t = (maxSpeed > 0.0) ? std::min(speed / maxSpeed, 1.0) : 0.0;
+    Uint8 r = static_cast<Uint8>(t * 255);
+    Uint8 g = 0;
+    Uint8 b = static_cast<Uint8>((1.0 - t) * 255);
+    return {r, g, b, 255};
 }

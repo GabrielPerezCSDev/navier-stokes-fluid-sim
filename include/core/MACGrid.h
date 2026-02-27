@@ -20,6 +20,7 @@ class MACGrid
 {
 public:
     std::unordered_map<std::pair<int, int>, MACCell *, hash_pair> grid;
+    double maxVelocity = 0;
 
     MACGrid() = default;
     ~MACGrid();

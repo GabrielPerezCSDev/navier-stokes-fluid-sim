@@ -7,10 +7,10 @@
 int main()
 {
     MACGrid grid;
-    Rectangle tank(1, 1, 1, 1, 1); // 10x5 tank filled fully
+    Rectangle tank(1, 1, 1, 3, 1);
     tank.applyToGrid(grid);
     MACCell* testCell = grid.getCell(14, 14);
-    if (testCell) testCell->vB = -5.0;
+    if (testCell) testCell->vB = -1;
 
     SDLRenderer renderer(1920, 1080, 30);
 

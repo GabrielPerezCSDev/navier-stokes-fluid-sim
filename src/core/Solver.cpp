@@ -1,6 +1,7 @@
 #include "core/Solver.h"
 #include "core/Constants.h"
 #include <iostream>
+#include <cmath>
 namespace Solver
 {
 
@@ -39,6 +40,7 @@ namespace Solver
                 cell->uL = newUL[pos];
             if (newVB.count(pos))
                 cell->vB = newVB[pos];
+            updateMaxMACCellVelocity(grid, cell->uL, cell->vB);
         }
     }
 
@@ -140,6 +142,11 @@ namespace Solver
                 cell->vB += gravity * dt;
             }
         }
+    }
+
+    void updateMaxMACCellVelocity(MACGrid& grid, double u, double v){
+        double velocity = std::sqrt(u*u + v*v);
+        grid.maxVelocity = std::max(grid.maxVelocity, velocity);
     }
 
 }

@@ -27,5 +27,8 @@ namespace Solver {
 
     //gravity
     void applyGravity(MACGrid& grid, double gravity, double dt);
+
+    //helper functions 
+    void updateMaxMACCellVelocity(MACGrid& grid, double u, double v);
 }
     #endif // SOLVER_H
