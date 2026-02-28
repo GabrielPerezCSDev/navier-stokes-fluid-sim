@@ -19,10 +19,11 @@ class SDLRenderer {
     int offsetX = 0;  
     int offsetY = 0;
     int gridMaxY = 0;
+    int gridMinX = 0;
     bool offsetInitialized = false;
 
     void calculateCenterOffset(const MACGrid& grid);
-    
+
     SDL_Color velocityColor(double speed, double maxSpeed);
 };
 

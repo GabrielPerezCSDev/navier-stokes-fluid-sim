@@ -79,7 +79,7 @@ bool SDLRenderer::pollEvents() {
 
 void SDLRenderer::drawGrid(const MACGrid& grid) {
     if (!offsetInitialized){
-        printf("\n\nCalculating offset\n\n");
+        //printf("\n\nCalculating offset\n\n");
         calculateCenterOffset(grid);
     }
     SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255); // background
@@ -93,7 +93,7 @@ void SDLRenderer::drawGrid(const MACGrid& grid) {
         int x = pos.first;
         int y = pos.second;
 
-        int drawX = x * cellSize + offsetX;
+        int drawX = offsetX + (x - gridMinX) * cellSize;
         int drawY = offsetY + (gridMaxY - y) * cellSize;
         //int drawX = x * cellSize;
         //int drawY = (y * cellSize);
@@ -175,10 +175,15 @@ void SDLRenderer::calculateCenterOffset(const MACGrid& grid) {
     offsetY = (screenHeight - simPixelHeight) / 2;
 
     gridMaxY = maxY;
-
+    gridMinX = minX;
     offsetInitialized = true;
 
+    int cellsWide = maxX - minX + 1;
+    int cellsHigh = maxY - minY + 1;
+    //cellSize = std::min(screenWidth / cellsWide, screenHeight / cellsHigh);
+
     // === Debug Output ===
+    /*
     std::cout << "\n=== Simulation Grid Bounds ===\n";
     std::cout << "Min X: " << minX << ", Max X: " << maxX << "\n";
     std::cout << "Min Y: " << minY << ", Max Y: " << maxY << "\n";
@@ -200,6 +205,7 @@ void SDLRenderer::calculateCenterOffset(const MACGrid& grid) {
 
     std::cout << "\n=== Grid Stats ===\n";
     std::cout << "Total Cells: " << grid.grid.size() << "\n";
+    */
 }
 
 SDL_Color SDLRenderer::velocityColor(double speed, double maxSpeed) {

@@ -3,7 +3,7 @@
 
 constexpr double CELL_SIZE = 0.1;        // meters
 constexpr double GRAVITY = -9.81;         // m/s^2 downward
-constexpr double TIME_STEP = 0.01;        // seconds
+constexpr double TIME_STEP = 0.05;        // seconds
 constexpr double DEFAULT_PRESSURE = 101325.0;
 
 //water 
