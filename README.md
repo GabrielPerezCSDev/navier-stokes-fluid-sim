@@ -50,7 +50,7 @@ fluid_sim/
 
 ## Technical Details
 
-- **Grid:** MAC staggered grid — velocity components stored at cell faces, pressure at cell centers
+- **Grid:** MAC staggered grid — velocity components stored at bottom and left cell faces, pressure at cell centers
 - **Advection:** Semi-Lagrangian method for stable velocity transport
 - **Gravity:** Per-timestep body force applied to fluid cells
 - **Rendering:** Real-time SDL2 visualization
